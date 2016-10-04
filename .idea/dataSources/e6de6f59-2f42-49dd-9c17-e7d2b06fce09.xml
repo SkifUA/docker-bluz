@@ -1,0 +1,581 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataSource name="MySQL - bluz@localhost">
+  <database-model serializer="dbm" rdbms="MYSQL" format-version="2.6">
+    <schema id="1" name="bluz">
+      <visible>1</visible>
+    </schema>
+    <schema id="2" name="information_schema"/>
+    <schema id="3" name="mysql"/>
+    <schema id="4" name="performance_schema"/>
+    <schema id="5" name="sys"/>
+    <table id="6" parent="1" name="acl_privileges"/>
+    <table id="7" parent="1" name="acl_roles"/>
+    <table id="8" parent="1" name="acl_users_roles"/>
+    <table id="9" parent="1" name="auth"/>
+    <table id="10" parent="1" name="categories"/>
+    <table id="11" parent="1" name="com_content"/>
+    <table id="12" parent="1" name="com_settings"/>
+    <table id="13" parent="1" name="media"/>
+    <table id="14" parent="1" name="options"/>
+    <table id="15" parent="1" name="pages"/>
+    <table id="16" parent="1" name="test"/>
+    <table id="17" parent="1" name="users"/>
+    <table id="18" parent="1" name="users_actions"/>
+    <column id="19" parent="6" name="roleId">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+    </column>
+    <column id="20" parent="6" name="module">
+      <mandatory>1</mandatory>
+      <data-type>varchar(32)|0</data-type>
+    </column>
+    <column id="21" parent="6" name="privilege">
+      <mandatory>1</mandatory>
+      <data-type>varchar(32)|0</data-type>
+    </column>
+    <index id="22" parent="6" name="acl_privileges_roleId_module_privilege_uindex">
+      <columns>roleId
+module
+privilege</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <key id="23" parent="6" name="acl_privileges_roleId_module_privilege_uindex">
+      <columns>roleId
+module
+privilege</columns>
+      <underlying-index>acl_privileges_roleId_module_privilege_uindex</underlying-index>
+    </key>
+    <foreign-key id="24" parent="6" name="acl_privileges_acl_roles_id_fk">
+      <columns>roleId</columns>
+      <ref-key>bluz.acl_roles(id)</ref-key>
+      <cascade-update-rule>update</cascade-update-rule>
+      <cascade-delete-rule>delete</cascade-delete-rule>
+    </foreign-key>
+    <column id="25" parent="7" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="26" parent="7" name="name">
+      <mandatory>1</mandatory>
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="27" parent="7" name="created">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <index id="28" parent="7" name="acl_roles_name_uindex">
+      <columns>name</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <key id="29" parent="7" name="PRIMARY">
+      <columns>id
+name</columns>
+      <primary>1</primary>
+    </key>
+    <key id="30" parent="7" name="acl_roles_name_uindex">
+      <columns>name</columns>
+      <underlying-index>acl_roles_name_uindex</underlying-index>
+    </key>
+    <column id="31" parent="8" name="userId">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20) unsigned|0</data-type>
+    </column>
+    <column id="32" parent="8" name="roleId">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+    </column>
+    <index id="33" parent="8" name="acl_users_roles_acl_roles_id_fk">
+      <columns>roleId</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <key id="34" parent="8" name="PRIMARY">
+      <columns>userId
+roleId</columns>
+      <primary>1</primary>
+    </key>
+    <foreign-key id="35" parent="8" name="acl_users_roles_users_id_fk">
+      <columns>userId</columns>
+      <ref-key>~.users.PRIMARY</ref-key>
+      <cascade-update-rule>update</cascade-update-rule>
+      <cascade-delete-rule>delete</cascade-delete-rule>
+    </foreign-key>
+    <foreign-key id="36" parent="8" name="acl_users_roles_acl_roles_id_fk">
+      <columns>roleId</columns>
+      <ref-key>bluz.acl_roles(id)</ref-key>
+      <cascade-update-rule>update</cascade-update-rule>
+      <cascade-delete-rule>delete</cascade-delete-rule>
+    </foreign-key>
+    <column id="37" parent="9" name="userId">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20) unsigned|0</data-type>
+    </column>
+    <column id="38" parent="9" name="provider">
+      <mandatory>1</mandatory>
+      <data-type>varchar(64)|0</data-type>
+    </column>
+    <column id="39" parent="9" name="foreignKey">
+      <mandatory>1</mandatory>
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="40" parent="9" name="token">
+      <mandatory>1</mandatory>
+      <data-type>varchar(64)|0</data-type>
+    </column>
+    <column id="41" parent="9" name="tokenSecret">
+      <data-type>varchar(64)|0</data-type>
+    </column>
+    <column id="42" parent="9" name="tokenType">
+      <mandatory>1</mandatory>
+      <data-type>varchar(32)|0</data-type>
+    </column>
+    <column id="43" parent="9" name="created">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="44" parent="9" name="updated">
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="45" parent="9" name="expired">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <key id="46" parent="9" name="PRIMARY">
+      <columns>userId
+provider</columns>
+      <primary>1</primary>
+    </key>
+    <foreign-key id="47" parent="9" name="auth_users_id_fk">
+      <columns>userId</columns>
+      <ref-key>~.users.PRIMARY</ref-key>
+      <cascade-update-rule>update</cascade-update-rule>
+      <cascade-delete-rule>delete</cascade-delete-rule>
+    </foreign-key>
+    <column id="48" parent="10" name="id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20) unsigned|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="49" parent="10" name="parentId">
+      <data-type>bigint(20) unsigned|0</data-type>
+    </column>
+    <column id="50" parent="10" name="name">
+      <mandatory>1</mandatory>
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="51" parent="10" name="alias">
+      <mandatory>1</mandatory>
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="52" parent="10" name="created">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="53" parent="10" name="updated">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="54" parent="10" name="order">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20) unsigned|0</data-type>
+      <default-expression>&apos;0&apos;</default-expression>
+    </column>
+    <index id="55" parent="10" name="UNIQUE_alias">
+      <columns>parentId
+alias</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <key id="56" parent="10" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <key id="57" parent="10" name="UNIQUE_alias">
+      <columns>parentId
+alias</columns>
+      <underlying-index>UNIQUE_alias</underlying-index>
+    </key>
+    <foreign-key id="58" parent="10" name="categories_categories_id_fk">
+      <columns>parentId</columns>
+      <ref-key>PRIMARY</ref-key>
+      <cascade-update-rule>update</cascade-update-rule>
+      <cascade-delete-rule>delete</cascade-delete-rule>
+    </foreign-key>
+    <column id="59" parent="11" name="id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20) unsigned|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="60" parent="11" name="settingsId">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+    </column>
+    <column id="61" parent="11" name="foreignKey">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+    </column>
+    <column id="62" parent="11" name="userId">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20) unsigned|0</data-type>
+    </column>
+    <column id="63" parent="11" name="parentId">
+      <data-type>bigint(20) unsigned|0</data-type>
+    </column>
+    <column id="64" parent="11" name="content">
+      <data-type>longtext|0</data-type>
+    </column>
+    <column id="65" parent="11" name="created">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="66" parent="11" name="updated">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="67" parent="11" name="status">
+      <mandatory>1</mandatory>
+      <data-type>varchar(255)|0</data-type>
+      <default-expression>&apos;active&apos;</default-expression>
+    </column>
+    <index id="68" parent="11" name="comments_target">
+      <columns>settingsId
+foreignKey</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <index id="69" parent="11" name="com_content_com_content_id_fk">
+      <columns>parentId</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <index id="70" parent="11" name="com_content_users_id_fk">
+      <columns>userId</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <key id="71" parent="11" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <foreign-key id="72" parent="11" name="com_content_com_settings_id_fk">
+      <columns>settingsId</columns>
+      <ref-key>~.com_settings.PRIMARY</ref-key>
+      <cascade-update-rule>update</cascade-update-rule>
+      <cascade-delete-rule>delete</cascade-delete-rule>
+    </foreign-key>
+    <foreign-key id="73" parent="11" name="com_content_users_id_fk">
+      <columns>userId</columns>
+      <ref-key>~.users.PRIMARY</ref-key>
+      <cascade-update-rule>update</cascade-update-rule>
+      <cascade-delete-rule>delete</cascade-delete-rule>
+    </foreign-key>
+    <foreign-key id="74" parent="11" name="com_content_com_content_id_fk">
+      <columns>parentId</columns>
+      <ref-key>PRIMARY</ref-key>
+      <cascade-update-rule>update</cascade-update-rule>
+      <cascade-delete-rule>delete</cascade-delete-rule>
+    </foreign-key>
+    <column id="75" parent="12" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="76" parent="12" name="alias">
+      <mandatory>1</mandatory>
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="77" parent="12" name="options">
+      <data-type>longtext|0</data-type>
+    </column>
+    <column id="78" parent="12" name="created">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="79" parent="12" name="updated">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="80" parent="12" name="countPerPage">
+      <mandatory>1</mandatory>
+      <data-type>smallint(6)|0</data-type>
+      <default-expression>&apos;10&apos;</default-expression>
+    </column>
+    <column id="81" parent="12" name="relatedTable">
+      <data-type>varchar(64)|0</data-type>
+    </column>
+    <index id="82" parent="12" name="com_settings_alias_uindex">
+      <columns>alias</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <key id="83" parent="12" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <key id="84" parent="12" name="com_settings_alias_uindex">
+      <columns>alias</columns>
+      <underlying-index>com_settings_alias_uindex</underlying-index>
+    </key>
+    <column id="85" parent="13" name="id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="86" parent="13" name="userId">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20) unsigned|0</data-type>
+    </column>
+    <column id="87" parent="13" name="module">
+      <mandatory>1</mandatory>
+      <data-type>varchar(24)|0</data-type>
+      <default-expression>&apos;users&apos;</default-expression>
+    </column>
+    <column id="88" parent="13" name="title">
+      <data-type>longtext|0</data-type>
+    </column>
+    <column id="89" parent="13" name="type">
+      <data-type>varchar(24)|0</data-type>
+    </column>
+    <column id="90" parent="13" name="file">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="91" parent="13" name="preview">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="92" parent="13" name="created">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="93" parent="13" name="updated">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <index id="94" parent="13" name="media_users_id_fk">
+      <columns>userId</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <key id="95" parent="13" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <foreign-key id="96" parent="13" name="media_users_id_fk">
+      <columns>userId</columns>
+      <ref-key>~.users.PRIMARY</ref-key>
+      <cascade-update-rule>update</cascade-update-rule>
+      <cascade-delete-rule>delete</cascade-delete-rule>
+    </foreign-key>
+    <column id="97" parent="14" name="namespace">
+      <mandatory>1</mandatory>
+      <data-type>varchar(64)|0</data-type>
+      <default-expression>&apos;default&apos;</default-expression>
+    </column>
+    <column id="98" parent="14" name="key">
+      <mandatory>1</mandatory>
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="99" parent="14" name="value">
+      <mandatory>1</mandatory>
+      <data-type>longtext|0</data-type>
+    </column>
+    <column id="100" parent="14" name="description">
+      <data-type>longtext|0</data-type>
+    </column>
+    <column id="101" parent="14" name="created">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="102" parent="14" name="updated">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <key id="103" parent="14" name="PRIMARY">
+      <columns>key
+namespace</columns>
+      <primary>1</primary>
+    </key>
+    <column id="104" parent="15" name="id">
+      <mandatory>1</mandatory>
+      <data-type>int(10) unsigned|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="105" parent="15" name="userId">
+      <data-type>bigint(20) unsigned|0</data-type>
+    </column>
+    <column id="106" parent="15" name="title">
+      <mandatory>1</mandatory>
+      <data-type>longtext|0</data-type>
+    </column>
+    <column id="107" parent="15" name="alias">
+      <mandatory>1</mandatory>
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="108" parent="15" name="content">
+      <data-type>longtext|0</data-type>
+    </column>
+    <column id="109" parent="15" name="keywords">
+      <data-type>longtext|0</data-type>
+    </column>
+    <column id="110" parent="15" name="description">
+      <data-type>longtext|0</data-type>
+    </column>
+    <column id="111" parent="15" name="created">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="112" parent="15" name="updated">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <index id="113" parent="15" name="pages_alias_uindex">
+      <columns>alias</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <index id="114" parent="15" name="pages_users_id_fk">
+      <columns>userId</columns>
+      <desc-columns></desc-columns>
+    </index>
+    <key id="115" parent="15" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <key id="116" parent="15" name="pages_alias_uindex">
+      <columns>alias</columns>
+      <underlying-index>pages_alias_uindex</underlying-index>
+    </key>
+    <foreign-key id="117" parent="15" name="pages_users_id_fk">
+      <columns>userId</columns>
+      <ref-key>~.users.PRIMARY</ref-key>
+      <cascade-update-rule>update</cascade-update-rule>
+      <cascade-delete-rule>delete</cascade-delete-rule>
+    </foreign-key>
+    <column id="118" parent="16" name="id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20)|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="119" parent="16" name="name">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="120" parent="16" name="email">
+      <data-type>varchar(512)|0</data-type>
+    </column>
+    <column id="121" parent="16" name="status">
+      <data-type>enum(&apos;active&apos;, &apos;disable&apos;, &apos;delete&apos;)|0</data-type>
+    </column>
+    <key id="122" parent="16" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <column id="123" parent="17" name="id">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20) unsigned|0</data-type>
+      <sequence-identity>1</sequence-identity>
+    </column>
+    <column id="124" parent="17" name="login">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="125" parent="17" name="email">
+      <data-type>varchar(255)|0</data-type>
+    </column>
+    <column id="126" parent="17" name="created">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="127" parent="17" name="updated">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="128" parent="17" name="status">
+      <mandatory>1</mandatory>
+      <data-type>varchar(32)|0</data-type>
+      <default-expression>&apos;disabled&apos;</default-expression>
+    </column>
+    <index id="129" parent="17" name="users_email_uindex">
+      <columns>email</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <index id="130" parent="17" name="users_login_uindex">
+      <columns>login</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <key id="131" parent="17" name="PRIMARY">
+      <columns>id</columns>
+      <primary>1</primary>
+    </key>
+    <key id="132" parent="17" name="users_login_uindex">
+      <columns>login</columns>
+      <underlying-index>users_login_uindex</underlying-index>
+    </key>
+    <key id="133" parent="17" name="users_email_uindex">
+      <columns>email</columns>
+      <underlying-index>users_email_uindex</underlying-index>
+    </key>
+    <column id="134" parent="18" name="userId">
+      <mandatory>1</mandatory>
+      <data-type>bigint(20) unsigned|0</data-type>
+    </column>
+    <column id="135" parent="18" name="code">
+      <mandatory>1</mandatory>
+      <data-type>varchar(32)|0</data-type>
+    </column>
+    <column id="136" parent="18" name="action">
+      <mandatory>1</mandatory>
+      <data-type>varchar(32)|0</data-type>
+    </column>
+    <column id="137" parent="18" name="params">
+      <data-type>longtext|0</data-type>
+    </column>
+    <column id="138" parent="18" name="created">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <column id="139" parent="18" name="expired">
+      <mandatory>1</mandatory>
+      <data-type>timestamp|0</data-type>
+      <default-expression>CURRENT_TIMESTAMP</default-expression>
+    </column>
+    <index id="140" parent="18" name="users_actions_userId_action_uindex">
+      <columns>userId
+action</columns>
+      <desc-columns></desc-columns>
+      <unique>1</unique>
+    </index>
+    <key id="141" parent="18" name="PRIMARY">
+      <columns>userId
+code</columns>
+      <primary>1</primary>
+    </key>
+    <key id="142" parent="18" name="users_actions_userId_action_uindex">
+      <columns>userId
+action</columns>
+      <underlying-index>users_actions_userId_action_uindex</underlying-index>
+    </key>
+    <foreign-key id="143" parent="18" name="users_actions_users_id_fk">
+      <columns>userId</columns>
+      <ref-key>~.users.PRIMARY</ref-key>
+      <cascade-update-rule>update</cascade-update-rule>
+      <cascade-delete-rule>delete</cascade-delete-rule>
+    </foreign-key>
+  </database-model>
+</dataSource>
