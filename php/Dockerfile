@@ -17,10 +17,21 @@ RUN docker-php-ext-install pdo_mysql && docker-php-ext-enable pdo_mysql \
 #RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 #&& php composer-setup.php \
 #&& php -r "unlink('composer-setup.php');"
-
 RUN curl -sS https://getcomposer.org/installer | php -- \
 	--install-dir=/usr/local/bin \
 	--filename=composer
+
+# imagic
+RUN runtimeRequirements="libmagickwand-6.q16-dev --no-install-recommends" \
+	&& apt-get update && apt-get install -y ${runtimeRequirements} \
+	&& ln -s /usr/lib/x86_64-linux-gnu/ImageMagick-6.8.9/bin-Q16/MagickWand-config /usr/bin/ \
+	&& pecl install imagick \
+	&& echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini \
+	&& rm -rf /var/lib/apt/lists/*
+
+COPY ./upload.ini /usr/local/etc/php/conf.d/upload.ini
+
+
 
 #===Xdebug===#
 #ADD http://xdebug.org/files/xdebug-2.3.3.tgz /
