@@ -40,5 +40,8 @@ After installing composer will run bin/install script for creating data/* folder
  run phpunit tests
  ```
  $ docker exec -ti bluz_php -u www-data phpunit
+ 
+ $ docker exec -ti bluz_php vendor/bin/phinx migrate -e development
+ $ docker exec -ti bluz_php vendor/bin/phinx seed:run -e development
  ```
  

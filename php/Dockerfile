@@ -18,7 +18,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
 	--install-dir=/usr/local/bin \
 	--filename=composer
 
-# imagic
+# imagick
 RUN runtimeRequirements="libmagickwand-6.q16-dev --no-install-recommends" \
 	&& apt-get update && apt-get install -y ${runtimeRequirements} \
 	&& ln -s /usr/lib/x86_64-linux-gnu/ImageMagick-6.8.9/bin-Q16/MagickWand-config /usr/bin/ \
@@ -27,7 +27,7 @@ RUN runtimeRequirements="libmagickwand-6.q16-dev --no-install-recommends" \
 	&& rm -rf /var/lib/apt/lists/*
 
 COPY ./upload.ini /usr/local/etc/php/conf.d/upload.ini
-
+COPY ./charset.ini /usr/local/etc/php/conf.d/charset.ini
 
 
 # ===Xdebug=== #
