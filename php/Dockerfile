@@ -26,8 +26,11 @@ RUN runtimeRequirements="libmagickwand-6.q16-dev --no-install-recommends" \
 	&& echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini \
 	&& rm -rf /var/lib/apt/lists/*
 
+RUN docker-php-ext-install gettext
+
 COPY ./upload.ini /usr/local/etc/php/conf.d/upload.ini
 COPY ./charset.ini /usr/local/etc/php/conf.d/charset.ini
+COPY ./gettext.ini /usr/local/etc/php/conf.d/gettext.ini
 
 
 # ===Xdebug=== #
