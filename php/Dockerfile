@@ -27,10 +27,19 @@ RUN runtimeRequirements="libmagickwand-6.q16-dev --no-install-recommends" \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN docker-php-ext-install gettext
+RUN docker-php-ext-enable gettext
 
 COPY ./upload.ini /usr/local/etc/php/conf.d/upload.ini
 COPY ./charset.ini /usr/local/etc/php/conf.d/charset.ini
-COPY ./gettext.ini /usr/local/etc/php/conf.d/gettext.ini
+
+
+# Locales
+RUN apt-get update && apt-get install -y locales
+
+RUN dpkg-reconfigure locales && locale-gen ru_RU
+
+RUN echo 'ru_RU UTF-8' >> /etc/locale.gen \
+    && locale-gen
 
 
 # ===Xdebug=== #
