@@ -26,6 +26,7 @@ RUN runtimeRequirements="libmagickwand-6.q16-dev --no-install-recommends" \
 	&& echo "extension=imagick.so" > /usr/local/etc/php/conf.d/ext-imagick.ini \
 	&& rm -rf /var/lib/apt/lists/*
 
+# gettext
 RUN docker-php-ext-install gettext
 RUN docker-php-ext-enable gettext
 
@@ -35,9 +36,7 @@ COPY ./charset.ini /usr/local/etc/php/conf.d/charset.ini
 
 # Locales
 RUN apt-get update && apt-get install -y locales
-
 RUN dpkg-reconfigure locales && locale-gen ru_RU
-
 RUN echo 'ru_RU UTF-8' >> /etc/locale.gen \
     && locale-gen
 
