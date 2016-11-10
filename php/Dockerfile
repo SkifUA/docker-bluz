@@ -1,4 +1,4 @@
-FROM php:5.6-fpm
+FROM php:7.0-fpm
 
 RUN apt-get update && apt-get install -y apt-utils re2c g++ \
 zlib1g zlib1g-dbg zlib1g-dev zlibc \
@@ -42,8 +42,13 @@ RUN echo 'ru_RU UTF-8' >> /etc/locale.gen \
 
 
 # ===Xdebug=== #
-RUN pecl install -o -f xdebug \
-    && rm -rf /tmp/pear
+ADD http://xdebug.org/files/xdebug-2.4.0rc4.tgz /
+RUN tar -xvzf /xdebug-2.4.0rc4.tgz \
+    && cd xdebug-2.4.0RC4 \
+    && phpize && \
+    ./configure \
+    && make \
+    && cp modules/xdebug.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012/
 COPY xdebug.ini /usr/local/etc/php/conf.d/
 
 RUN docker-php-ext-enable xdebug
