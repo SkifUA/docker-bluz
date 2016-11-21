@@ -6,6 +6,7 @@ git
 
 # ldap
 RUN apt install -y libldap2-dev
+RUN ln -fs /usr/lib/x86_64-linux-gnu/libldap.so /usr/lib/
 RUN docker-php-ext-configure ldap --with-libdir=lib/x86_64-linux-gnu
 RUN docker-php-ext-install ldap
 

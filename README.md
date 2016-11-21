@@ -6,7 +6,7 @@ $ docker-compose -p bluz -f docker/docker-compose.yml build
 ```
 3. Run containers
 ```
-$ docker-compose -p bluz -f docker/docker-compose.yml up
+$ docker-compose -p bluz -f docker/docker-compose.yml up -d
 ```
 
 4. Run composer install from php container
